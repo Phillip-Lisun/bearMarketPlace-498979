@@ -18,7 +18,7 @@ class Welcome extends Component {
       }
 
     getMessage = () => {
-        fetch('/api/register')
+        fetch('/api')
         .then(res => res.json())
         .then(message => this.setState({message}))
     }
