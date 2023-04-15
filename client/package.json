@@ -12,7 +12,7 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "export PORT=3456 && react-scripts start && node --max-http-header-size=16000 /home/phillipl/bearMP/index.js",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
@@ -24,9 +24,8 @@
     ]
   },
 	
-  "scripts": {
-     "start": "export PORT=3456 && react-scripts start"	
-  },
+  "proxy": "http://localhost:3456",
+  
 
 
   "browserslist": {

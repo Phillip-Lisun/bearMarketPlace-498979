@@ -4,11 +4,13 @@
   "description": "a market place for washu students that serves as a place for helping to coordinate purchases",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
   },
   "author": "Phillip Lisun",
   "license": "ISC",
   "dependencies": {
+    "cors": "^2.8.5",
     "express": "^4.18.2",
     "http": "^0.0.1-security",
     "mongodb": "^5.2.0"
