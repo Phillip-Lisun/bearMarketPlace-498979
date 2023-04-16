@@ -1,0 +1,39 @@
+#register {
+    margin-top: 15%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #006494;
+
+    /* height: 90rem; */
+}
+
+.registerFormDiv {
+    /* padding: 20%; */
+    /* margin-left: 20rem; */
+    padding-top: 1rem;
+    width: 40rem;
+    height: 21rem;
+    background-color: #051923;
+    box-shadow: 0 0 10rem #003554;
+    border-radius: 20px;
+    opacity: 85%;
+  }
+  .registerFormGrid {
+    padding: 2rem;
+  
+    
+  }
+
+  #registerHead {
+    color: white;
+  }
+
+  #registerButton {
+    background-color: #003554;
+    border-color: #003554;
+  }
+  #registerButton:hover {
+    background-color: #0582CA;
+    opacity: 70%;
+  }

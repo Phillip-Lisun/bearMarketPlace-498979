@@ -1,13 +1,13 @@
 import logo from './logo.svg';
-import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import React, { Component } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { BrowserRouter } from 'react-router-dom';
 
+import Welcome from './pages/Welcome/index.js';
+import Register from './pages/Register/index.js';
 
-import Welcome from './pages/welcome';
-import Register from './pages/register';
-
+import './App.css';
 
 
 class App extends Component {

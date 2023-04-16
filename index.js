@@ -19,6 +19,11 @@ app.get("/api", (req, res) => {
     res.json(message);
   });
 
+app.post("/register", (req, res) => {
+    res.send("It works!");
+    console.log("Post data recieved");
+});
+
 
 app.listen(port, () => {
     console.log('Listening on port ${port}')
