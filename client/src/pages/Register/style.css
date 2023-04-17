@@ -20,9 +20,10 @@
     opacity: 85%;
   }
   .registerFormGrid {
-    padding: 2rem;
-  
-    
+    padding-left: 2rem;
+    padding-right: 2rem;
+    padding-top: 2rem;
+    padding-bottom: 0.5rem;
   }
 
   #registerHead {
@@ -36,4 +37,8 @@
   #registerButton:hover {
     background-color: #0582CA;
     opacity: 70%;
+  }
+
+  #fieldAlert {
+    display: none;
   }

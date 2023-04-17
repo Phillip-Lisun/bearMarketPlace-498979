@@ -6,24 +6,28 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
 class RegisterForm extends Component {
+
     render() {
         return (
-            <Form className="registerFormGrid" method="post">
+            <Form className="registerFormGrid">
                 <Row className="mb-3">
                     <Form.Group as={Col} controlId="formGridFirstName">
                         {/* <Form.Label>First Name</Form.Label> */}
                         <Form.Control type="text" placeholder="First Name" />
                     </Form.Group>
-                    <Form.Group as={Col} controlId="formGirdLastName">
+                    <Form.Group as={Col} controlId="formGridLastName">
                         {/* <Form.Label>Last Name</Form.Label> */}
                         <Form.Control type="text" placeholder="Last Name" />
                     </Form.Group>
                 </Row>
                 <Row className="mb-3">
+                    <Form.Group as={Col} controlId="formGridUsername">
+                        <Form.Control type="text" placeholder="Username" />
+                    </Form.Group>
                     <Form.Group as={Col} controlId="formGridEmail">
                         <InputGroup>
                             {/* <Form.Label>Email Address</Form.Label> */}
-                            <Form.Control type="text" placeholder="example.p" />
+                            <Form.Control type="text" placeholder="Example.p" />
                             <InputGroup.Text>@wustl.edu</InputGroup.Text>
                         </InputGroup>
                     </Form.Group>
@@ -39,15 +43,9 @@ class RegisterForm extends Component {
                     </Form.Group>
                 </Row>
 
-                <Button variant="primary" type="submit" size="lg" id="registerButton" onClick="regiser()">
-                    Register
-                </Button>
-
-
             </Form>
         );
     }
-
 }
 
 export default RegisterForm
