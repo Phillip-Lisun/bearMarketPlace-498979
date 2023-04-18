@@ -18,8 +18,8 @@
     /* padding: 20%; */
     /* margin-left: 20rem; */
     padding-top: 1rem;
-    width: 35rem;
-    height: 18rem;
+    width: 25rem;
+    height: 16.5rem;
     background-color: #051923;
     box-shadow: 0 0 10rem #003554;
     border-radius: 20px;
@@ -28,7 +28,7 @@
   .loginFormGrid {
     padding-left: 2rem;
     padding-right: 2rem;
-    padding-top: 2rem;
+    padding-top: 1rem;
     padding-bottom: 0.5rem;
   }
 
