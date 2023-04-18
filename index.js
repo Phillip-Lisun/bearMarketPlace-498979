@@ -45,6 +45,21 @@ app.post("/api/register", async function (req, res) {
 
 });
 
+app.post("/api/login", async function (req, res) {
+  let data = req.body;
+
+  let loginCheck = await loginAttempt(data);
+
+  if(loginCheck === false) {
+    res.json({success: false});
+  }
+  if(loginCheck === true) {
+    res.json({success: "true"});
+  }
+  
+
+});
+
 app.listen(port, () => {
     console.log('Listening on port: ' + port)
 });
@@ -77,6 +92,9 @@ async function checkEmailExist(email) {
     if(userExists != null) {
       return true;
     }
+    else {
+      return false;
+    }
 
 }
 
@@ -85,6 +103,43 @@ async function pwdHash(pwd) {
   const salt = bcrypt.genSaltSync(saltRounds);
   const hash = bcrypt.hashSync(pwd, salt);
   return hash;
+
+
+}
+
+async function loginAttempt(data) {
+  let name = "";
+  let pwdHash = "";
+  let username = "";
+
+  let email = data.email;
+  let pwd = data.pwd;
+
+  if(checkEmailExist(email) === false) {
+    return false;
+  } 
+
+  userCheck = await User.findOne({'email': email}, 'username password name').exec();
+
+  if(userCheck != null) {
+    name = userCheck.name;
+    pwdHash = userCheck.password;
+    username = userCheck.username;
+  }
+ 
+
+  const pwdResult = await bcrypt.compareSync(pwd, pwdHash); 
+
+  if(pwdResult === false) {
+    return false;
+  }
+  if(pwdResult === true) {
+    return true;
+  }
+
+
+
+
 
 
 }

@@ -7,6 +7,7 @@ import { BrowserRouter } from 'react-router-dom';
 import Welcome from './pages/Welcome/index.js';
 import Register from './pages/Register/index.js';
 import Login from './pages/Login/index.js';
+import Marketplace from './pages/Marketplace/index.js';
 
 import './App.css';
 
@@ -19,6 +20,7 @@ class App extends Component {
           <Route path="/" exact element={ <Welcome/> } />
           <Route path='/register' exact element={<Register/>}/>
           <Route path='/login' exact element={<Login/>} />
+          <Route path='/marketplace' exact element={<Marketplace/>} />
         </Routes>
       </div>
     )

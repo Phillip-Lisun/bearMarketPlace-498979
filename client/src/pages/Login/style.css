@@ -8,11 +8,17 @@
     /* height: 90rem; */
 }
 
+#loginPage {
+    /* justify-content: center; */
+    align-items: center;
+    text-align: center;
+}
+
 .loginFormDiv {
     /* padding: 20%; */
     /* margin-left: 20rem; */
     padding-top: 1rem;
-    width: 40rem;
+    width: 35rem;
     height: 18rem;
     background-color: #051923;
     box-shadow: 0 0 10rem #003554;
@@ -41,4 +47,13 @@
 
   #fieldAlert {
     display: none;
+    width: 75rem;
+    font-size: 20pt;
+    font-weight: 500;
+  }
+  
+  #alertDiv {
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
