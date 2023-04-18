@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { createRoot } from 'react-dom/client';
-import { Link } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import RegisterForm from './registerForm';
 import Button from 'react-bootstrap/Button';
 import Alert from 'react-bootstrap/Alert';
@@ -53,25 +53,25 @@ function register() {
     let pwd = document.getElementById("password").value;
     let pwdCheck = document.getElementById("passwordCheck").value;
 
-    if(firstname.trim() == "") {
+    if(firstname.trim() === "") {
         fieldAlert = fieldAlert + "First Name ";
     }
-    if(lastname.trim() == "") {
+    if(lastname.trim() === "") {
         fieldAlert = fieldAlert + "Last Name ";
     }
-    if(username.trim() == "") {
+    if(username.trim() === "") {
         fieldAlert = fieldAlert + "Username ";
     }
-    if(email.trim() == "@wustl.edu") {
+    if(email.trim() === "@wustl.edu") {
         fieldAlert = fieldAlert + "Email ";
     }
-    if(pwd.trim() == "") {
+    if(pwd.trim() === "") {
         fieldAlert = fieldAlert + "Password ";
     }
-    if(pwdCheck.trim() == "") {
+    if(pwdCheck.trim() === "") {
         fieldAlert = fieldAlert + "Renter Password ";
     }
-    if(fieldAlert != "") {
+    if(fieldAlert !== "") {
         addAlert(fieldAlert);
     }
 
@@ -82,7 +82,7 @@ function register() {
         document.getElementById("fieldAlert").style.display = "block";
     }
 
-    if(check == true) {
+    if(check === true) {
         const data = {"firstName": firstname, "lastName": lastname, "username": username, "email": email, "pwd": pwd};
         sendRegister(data);
     }   
@@ -102,9 +102,23 @@ async function sendRegister(data) {
 
         const result = await response.json();
         console.log("Success:", result);
+
+        if(result.success === "true") {
+            window.location.href = '/login'
+        }
+        if(result.success === false) {
+            if(result.type === "Email") {
+                document.getElementById("fieldAlert").innerText = "Not Registered: Email in Use";
+                document.getElementById("fieldAlert").style.display = "block";
+            }
+        }
+
         } catch(error) {
         console.error("Error:", error);
+
     }
+
+
 }
 
 

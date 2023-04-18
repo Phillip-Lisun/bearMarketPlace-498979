@@ -6,6 +6,7 @@ import { BrowserRouter } from 'react-router-dom';
 
 import Welcome from './pages/Welcome/index.js';
 import Register from './pages/Register/index.js';
+import Login from './pages/Login/index.js';
 
 import './App.css';
 
@@ -17,6 +18,7 @@ class App extends Component {
         <Routes>
           <Route path="/" exact element={ <Welcome/> } />
           <Route path='/register' exact element={<Register/>}/>
+          <Route path='/login' exact element={<Login/>} />
         </Routes>
       </div>
     )
