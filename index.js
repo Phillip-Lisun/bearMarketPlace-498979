@@ -10,6 +10,9 @@ const mongoose = require('mongoose');
 const { Schema, model } = mongoose;
 const bcrypt = require('bcrypt');
 
+const multer = require("multer");
+const upload = multer({ dest: "./public/images" });
+
 const saltRounds = 10;
 
 
@@ -57,6 +60,20 @@ app.post("/api/login", async function (req, res) {
     res.json({success: "true"});
   }
   
+
+});
+
+app.post("/api/marketplace/create-sell", async function (req, res) {
+  let data = req.body;
+  console.log(data);
+  res.json({success:true});
+
+});
+
+app.post("/api/marketplace/create-sell/images", upload.array('images'),  async function (req, res) {
+  let data = req.files;
+  console.log(data);
+  res.json({success:true});
 
 });
 

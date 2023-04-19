@@ -1,0 +1,48 @@
+
+#sell {
+    margin-top: 15%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #006494;
+
+    /* height: 90rem; */
+}
+.sellFormDiv {
+    /* padding: 20%; */
+    /* margin-left: 20rem; */
+    padding-top: 1rem;
+    width: 70rem;
+    height: 30rem;
+    background-color: #051923;
+    box-shadow: 0 0 10rem #003554;
+    border-radius: 20px;
+    opacity: 85%;
+  }
+  .selFormGrid {
+    padding-left: 2rem;
+    padding-right: 2rem;
+    padding-top: 1rem;
+    padding-bottom: 0.5rem;
+  }
+
+  #sellHead {
+    color: white;
+  }
+
+  #sellButton {
+    background-color: #003554;
+    border-color: #003554;
+  }
+  #sellButton:hover {
+    background-color: #0582CA;
+    opacity: 70%;
+  }
+
+  #productDesc {
+    resize: none;
+    height: 5rem;
+  }
+  #fileLabel {
+    color: white;
+  }

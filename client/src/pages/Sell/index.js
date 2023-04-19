@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import MarketNav from '../../components/marketNavBar';
-import ProductNav from '../../components/productNav';
-
+import SellForm from './sellForm';
 import './style.css';
 
-class Marketplace extends Component {
+class Sell extends Component {
 
     componentDidMount () {
         onloadCheck();
@@ -16,7 +14,12 @@ class Marketplace extends Component {
         return (
             <div className="App">
                 <MarketNav />
-                <h1>Welcome to MarketPlace</h1>
+                <div className="body" id="sell">
+                    <div className="sellFormDiv">
+                        <h2 id="sellHead">Sell Item</h2>
+                            <SellForm />
+                    </div>
+                </div>
             </div>
 
         );
@@ -29,4 +32,5 @@ function onloadCheck() {
     }
 }
 
-export default Marketplace;
+
+export default Sell;
