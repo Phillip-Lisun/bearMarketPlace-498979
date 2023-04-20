@@ -103,8 +103,11 @@ function prepareData() {
         return;
     }
 
-    const data = {"title": title, "description": description, "price": price, "payPref": payPref};
+    const data = {"title": title, "description": description, "price": price, "payPref": payPref, email: sessionStorage.getItem("email")};
     let formData = new FormData();
+    formData.append('title', title);
+    formData.append('description', description);
+    formData.append('email', sessionStorage.getItem("email"));
 
     if(image.length != 0) {
 

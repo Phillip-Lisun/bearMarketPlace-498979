@@ -11,7 +11,19 @@ const { Schema, model } = mongoose;
 const bcrypt = require('bcrypt');
 
 const multer = require("multer");
-const upload = multer({ dest: "./public/images" });
+
+//Configuration for Multer copied code beginning https://www.section.io/engineering-education/uploading-files-using-multer-nodejs/
+const multerStorage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "./public/images");
+  },
+  filename: (req, file, cb) => {
+    const ext = file.mimetype.split("/")[1];
+    cb(null, `/admin-${file.fieldname}-${Date.now()}.${ext}`);
+  },
+}); // copied code end
+
+const upload = multer({ storage: multerStorage });
 
 const saltRounds = 10;
 
@@ -27,6 +39,9 @@ async function mongoConnect() {
   await mongoose.connect(uri);
   console.log("Connected to MongoDB!");
 }
+
+let currentUsername = "";
+let currentUserEmail = "";
 
 
 app.get("/api", (req, res) => {
@@ -65,15 +80,44 @@ app.post("/api/login", async function (req, res) {
 
 app.post("/api/marketplace/create-sell", async function (req, res) {
   let data = req.body;
-  console.log(data);
-  res.json({success:true});
+
+  // console.log(currentUserEmail + " " + data.email);
+  
+  if(currentUserEmail === data.email) {
+    if(await itemInsert(data) == true){
+      console.log("Item inserted");
+      res.json({success:true});
+    }
+    else {
+      res.json({success:false});
+    }
+  }
+  else {
+    res.json({success:false});
+  }
 
 });
 
 app.post("/api/marketplace/create-sell/images", upload.array('images'),  async function (req, res) {
-  let data = req.files;
-  console.log(data);
-  res.json({success:true});
+  let files = Array.from(req.files);
+  let postData = req.body;
+
+  if(files.length > 0) {
+    let fileNames = [];
+
+    for(let i = 0; i < files.length; i++) {
+      fileNames.push(files[i].filename);
+    }
+
+    let added = await insertImages(fileNames, postData);
+
+    if(added === true) {
+      res.json({success:true});
+    }
+    else {
+      res.json({success:false});
+    }
+  }
 
 });
 
@@ -151,15 +195,57 @@ async function loginAttempt(data) {
     return false;
   }
   if(pwdResult === true) {
+    currentUsername = userCheck.username;
+    currentUserEmail = email;
+    // console.log(currentUsername + " " + currentUserEmail);
     return true;
   }
 
 
+}
+
+async function itemInsert(data) {
+  
+
+  const addItem = await SellItem.create({
+    title: data.title,
+    description: data.description,
+    price: data.price,
+    payPref: data.payPref,
+    username: currentUsername,
+    email: currentUserEmail
+  });
+  // console.log(addItem);
 
 
-
+  if(addItem != null) {
+    return true;
+  }
+  else {
+    return false;
+  }
 
 }
+
+async function insertImages(imageNames, data) {
+
+  let post = await SellItem.findOne({title: data.title, description: data.description, email: data.email});
+
+  if(post != null) {
+    post.imageRef = imageNames;
+
+    await post.save();
+  
+    return true;
+  
+
+  }
+  else {
+    return false;
+  }
+
+}
+
 
 //mongoose schema 
 
@@ -174,4 +260,16 @@ const userSchema = new mongoose.Schema({
 
 });
 
+const sellPostSchema = new mongoose.Schema({
+  title: String,
+  description: String,
+  price: String,
+  payPref: String,
+  imageRef: [String],
+  username: String,
+  email: String
+
+});
+
 const User = mongoose.model('User', userSchema, 'users');
+const SellItem = mongoose.model('SellItem', sellPostSchema, 'sellItems');
