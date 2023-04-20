@@ -121,6 +121,24 @@ app.post("/api/marketplace/create-sell/images", upload.array('images'),  async f
 
 });
 
+app.post("/api/marketplace", async function (req, res) {
+  let data = req.body;
+
+  let startIndex = data.startIndex;
+  let endIndex = startIndex + 20;
+
+  let query = SellItem.find().skip(startIndex).limit(endIndex);
+  let itemList = await query.exec();
+
+  // console.log(itemList);
+
+  res.json(itemList);
+
+
+});
+
+
+
 app.listen(port, () => {
     console.log('Listening on port: ' + port)
 });
