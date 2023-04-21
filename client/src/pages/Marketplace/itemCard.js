@@ -41,7 +41,9 @@ class ItemCard extends Component {
 }
 
 function viewButton(id) {
-    alert(id);
+
+    return window.location.href = '/marketplace/view-item?itemId=' + id;
+
 }
 
 export default ItemCard;

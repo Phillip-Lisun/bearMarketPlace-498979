@@ -4,6 +4,7 @@ import MarketNav from '../../components/marketNavBar';
 import ItemCard from './itemCard';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
+import Container from 'react-bootstrap/Container';
 
 import './style.css';
 
@@ -34,26 +35,26 @@ class Marketplace extends Component {
     render () {
 
         return (
-            <div className="App">
+            <div className="App" id="marketHome">
                 <MarketNav />
-                <h1>Welcome to MarketPlace</h1>
 
-                <div className="itemContainer">
+                <div className="mainBody">
 
-                    <div className="items">
+                    <div className="itemContainer">
 
-                    <Row xs={1} md={2} className="g-4">
+                        <Container className="items">
 
-                        { (this.state.itemList).map((item, index) => {
-                            return (
-                                <ItemCard as={Col} title={item.title} description={item.description} price={item.price} itemId={item._id} imageSrc={item.imageRef} />
-                            )
-                        })}
+                            <Row id="itemRow" className="g-4">
+                                { (this.state.itemList).map((item, index) => {
+                                    return (
+                                        <Col >
+                                            <ItemCard title={item.title} description={item.description} price={item.price} itemId={item._id} imageSrc={item.imageRef} />
+                                        </Col>       
+                                    )
+                                })}
+                            </Row>
 
-
-
-
-                    </Row>
+                        </Container>
 
                     </div>
 

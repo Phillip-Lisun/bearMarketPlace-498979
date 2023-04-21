@@ -1,0 +1,90 @@
+.imageInfoContainer {
+    display: flex;
+    padding: 2rem;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+}
+
+.itemTitle {
+    color: white;
+    font-size: 25pt;
+
+}
+
+.viewItemBody {
+    background-color: #003554;
+    margin-top: 4rem;
+    margin-left: 15rem;
+    margin-right: 15rem;
+    color: white;
+    border-radius: 5rem;
+    height: auto;
+    margin-bottom: 4rem;
+}
+
+#titleUnderline{
+    background-color: white;
+    height: 0.1rem;
+    margin-left:10rem;
+    margin-right: 10rem;
+    border-radius: 5rem;
+
+}
+
+.itemDescription {
+    padding-bottom: 2rem;
+    background-color: #0582CA;
+    border-radius: 2rem;
+}
+.itemPrice {
+    background-color: #0582CA;
+    border-radius: 2rem;
+    width: 6rem;
+    margin-bottom: 5rem;
+}
+.itemPayPref {
+    background-color: #0582CA;
+    border-radius: 2rem;
+    width: 6rem;
+
+}
+.itemUsername {
+    background-color: #0582CA;
+    border-radius: 2rem;
+    width: 6rem;
+    margin-bottom: 5rem;
+
+
+}
+.buyRequest {
+    background-color: #0582CA;
+}
+.imageCarousel {
+    /* height: 20rem; */
+    width: 20rem;
+}
+.infoContainer {
+    /* margin-bottom: 4rem; */
+    background-color: #0582CA;
+    color: black;
+    display: flex;
+    gap: 4rem;
+
+}
+/* .itemInfoCard {
+    width: 18rem;
+    background-color: #0582CA;
+    border: black;
+    border-radius: 2rem;
+    color: white;
+
+} */
+/* .buyButton {
+    background-color: #003554;
+}
+.buyButton:hover {
+    background-color: #00A6FB;
+
+} */
+

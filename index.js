@@ -139,6 +139,23 @@ app.post("/api/marketplace", async function (req, res) {
 
 
 
+app.post("/api/marketplace/view-item", async function (req, res) {
+  let data = req.body;
+
+  let itemId = data.itemId;
+
+  let query = SellItem.findOne({'_id': itemId});
+  let item = await query.exec();
+
+  // console.log(itemList);
+
+  res.json(item);
+
+
+});
+
+
+
 app.listen(port, () => {
     console.log('Listening on port: ' + port)
 });
