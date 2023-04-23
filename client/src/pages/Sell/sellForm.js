@@ -99,9 +99,14 @@ function prepareData() {
 
     let image = document.getElementById("images").files;
 
+    if(price > 999 || price < 0) {
+        return;
+    }
+
     if(title === "" || description === "" || price === "" || payPref === "") {
         return;
     }
+    
 
     const data = {"title": title, "description": description, "price": price, "payPref": payPref, email: sessionStorage.getItem("email")};
     let formData = new FormData();
