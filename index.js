@@ -125,7 +125,7 @@ app.post("/api/marketplace", async function (req, res) {
   let data = req.body;
 
   let startIndex = data.startIndex;
-  let endIndex = startIndex + 20;
+  let endIndex = startIndex + 200;
 
   let query = SellItem.find().skip(startIndex).limit(endIndex);
   let itemList = await query.exec();
