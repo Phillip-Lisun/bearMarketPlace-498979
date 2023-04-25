@@ -154,6 +154,22 @@ app.post("/api/marketplace/view-item", async function (req, res) {
 
 });
 
+app.post("/api/marketplace/my-items", async function (req, res) {
+  let data = req.body;
+
+  let startIndex = data.startIndex;
+  let endIndex = startIndex + 200;
+
+  let query = SellItem.find({'email': currentUserEmail}).skip(startIndex).limit(endIndex);
+  let itemList = await query.exec();
+
+  // console.log(itemList);
+
+  res.json(itemList);
+
+
+});
+
 
 
 app.listen(port, () => {

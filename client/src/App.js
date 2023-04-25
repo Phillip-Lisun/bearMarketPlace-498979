@@ -10,6 +10,8 @@ import Login from './pages/Login/index.js';
 import Marketplace from './pages/Marketplace/index.js';
 import Sell from './pages/Sell/index.js';
 import ViewItem from './pages/ViewItem/index.js';
+import MyItems from './pages/MyItems/index.js';
+
 
 
 import './App.css';
@@ -26,6 +28,7 @@ class App extends Component {
           <Route path='/marketplace' exact element={<Marketplace/>} />
           <Route path='/marketplace/create-sell' exact element={<Sell/>} />
           <Route path='/marketplace/view-item' exact element={<ViewItem/>} />
+          <Route path='/marketplace/my-items' exact element={<MyItems/>} />
 
         </Routes>
       </div>

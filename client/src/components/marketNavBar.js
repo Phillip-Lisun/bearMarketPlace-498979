@@ -36,7 +36,7 @@ class MarketNav extends Component {
                     <Nav.Link href="/marketplace/create-sell">Sell</Nav.Link>
 
                     <NavDropdown title="Profile" id="collasible-nav-dropdown">
-                        <NavDropdown.Item>My Items</NavDropdown.Item>
+                        <NavDropdown.Item onClick={myItems}>My Items</NavDropdown.Item>
                         <NavDropdown.Item>
                             My Buys
                         </NavDropdown.Item>
@@ -57,8 +57,10 @@ class MarketNav extends Component {
 function logout() {
     sessionStorage.clear();
     window.location.href = '/';
- 
+}
 
+function myItems() {
+    window.location.href = '/marketplace/my-items';
 }
 
 export default MarketNav;

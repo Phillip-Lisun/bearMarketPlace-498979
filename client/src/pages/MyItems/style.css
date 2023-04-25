@@ -1,0 +1,64 @@
+#secondNav {
+    background-color: #003554;
+    color: white;
+    
+
+}
+#marketDiv {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+
+}
+#searchField {
+    width: 30rem;
+}
+#centerNav {
+    padding-right: 12rem;
+}
+.marketNav {
+    height: 4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    justify-self: center;
+}
+#searchButton {
+    background-color: #003554;
+    border-color: #003554;
+}
+#searchButton:hover {
+    background-color: #0582CA;
+    opacity: 70%;
+}
+#collasible-nav-dropdown {
+    padding-right: 2rem;
+}
+.itemCardSingle {
+    width: 16rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+.itemContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* margin: 5rem; */
+
+}
+.mainBody {
+    margin: 5rem;
+
+    background-color: #003554;
+    border-radius: 5rem;
+
+    text-align: center;
+    margin-top: 2rem;
+
+
+
+}
+#itemRow {
+    margin: 2rem;
+}
