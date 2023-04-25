@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import MarketNav from '../../components/marketNavBar';
-import ItemCard from './itemCard';
+import ItemCard from '../../components/itemCard';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Container from 'react-bootstrap/Container';
