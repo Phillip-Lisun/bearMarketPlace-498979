@@ -49,9 +49,17 @@ class MyItems extends Component {
                                 { (this.state.itemList).map((item, index) => {
                                     return (
                                         <Col >
-                                            <ItemCard title={item.title} description={item.description} price={item.price} itemId={item._id} imageSrc={item.imageRef} />
-                                            <Button name="delete" id={item._id} onClick={() => deleteItem(item._id)}>Delete</Button>                         
-                                            <Button name="edit" id={item._id} onClick={() => editItem(item._id)}>Edit</Button>
+                                            <ItemCard title={item.title} description={item.description} price={item.price} itemId={item._id} imageSrc={item.imageRef}>
+                                            </ItemCard>
+
+                                            <div className="buyerActions">
+
+                                                <div>Buyers: {item.buyRequest}</div> <br/>
+                                                <Button name="delete" id={item._id} onClick={() => deleteItem(item._id)}>Delete</Button>                         
+                                                <Button name="edit" id={item._id} onClick={() => editItem(item._id)}>Edit</Button>
+
+
+                                            </div>
 
 
                                         </Col>       
@@ -104,13 +112,39 @@ async function getItems() {
 }
 
 async function deleteItem(itemId) {
-    alert(itemId);
 
+    let data = {'itemId': itemId, 'token': sessionStorage.getItem("token")};
+
+    try {
+        const response = await fetch("/api/marketplace/my-items/delete", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+        });
+
+        const result = await response.json();
+        console.log("Success:", result);
+        
+        if(result.success = true) {
+            window.location.reload(false);
+        }
+        else {
+            alert("Item not deleted");
+        }
+
+        } catch(error) {
+        console.error("Error:", error);
+
+    }
 }
 
 async function editItem(itemId) {
-    alert(itemId);
+    return window.location.href = '/marketplace/edit-item?itemId=' + itemId;
+
 
 }
+
 
 export default MyItems;

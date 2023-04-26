@@ -39,6 +39,8 @@
     width: 16rem;
     padding-left: 1rem;
     padding-right: 1rem;
+    border-bottom-left-radius: 0rem;
+    border-bottom-right-radius: 0rem;
 }
 .itemContainer {
     display: flex;
@@ -61,4 +63,16 @@
 }
 #itemRow {
     margin: 2rem;
+}
+
+.buyerActions {
+    width: 16rem;
+
+    background-color: white;
+
+    padding: 1rem;
+
+    border-bottom-left-radius: 2rem;
+    border-bottom-right-radius: 2rem;
+
 }

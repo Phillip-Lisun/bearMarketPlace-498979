@@ -6,13 +6,37 @@ import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
 
-class SellForm extends Component {
+class EditForm extends Component {
     
     constructor(props) {
         super(props)
 
-        this.state = {validated: false};
+        this.state = {
+            validated: false,
+            itemId: "",
+            item: ""
+        };
         // this.updateState = this.updateState.bind(this);
+
+    }
+
+    componentDidMount () {
+
+        const params = new URLSearchParams(window.location.search);
+
+        let id = params.get('itemId');
+
+        this.setState({
+            itemId: id
+        });
+
+        itemGetFields(id)
+        .then((response) => {
+            let items = response;
+            this.setState({
+                item: items
+            });
+        })
 
     }
     
@@ -26,7 +50,7 @@ class SellForm extends Component {
               event.stopPropagation();
             }
             if(form.checkValidity() === true) {
-                prepareData();
+                prepareData(this.state.itemId);
             }
         
             this.setState({validated: true});
@@ -40,7 +64,7 @@ class SellForm extends Component {
                 <Row className="mb-3">
                         <Form.Group as={Col}>
                             <FloatingLabel label="Product Title">
-                                <Form.Control type="text" id="productTitle" placeholder="Product Title" required/>
+                                <Form.Control type="text" id="productTitle" placeholder="Product Title" required defaultValue={this.state.item.title}/>
                             </FloatingLabel>
                         </Form.Group>
                 
@@ -49,7 +73,7 @@ class SellForm extends Component {
                 <Row className="mb-3">
                     <Form.Group as={Col}>
                         <FloatingLabel label="Description">
-                            <Form.Control as="textarea" id="productDesc" placeholder="Description" required />
+                            <Form.Control as="textarea" id="productDesc" placeholder="Description" required defaultValue={this.state.item.description}/>
                         </FloatingLabel>
                     </Form.Group>
                 </Row>
@@ -57,7 +81,7 @@ class SellForm extends Component {
                     <Form.Group as={Col}>
                     <InputGroup hasValidation>
                         <InputGroup.Text>$</InputGroup.Text>
-                        <Form.Control type="number" min="0" max="999" id="productPrice" required placeholder="Price or 0"/>
+                        <Form.Control type="number" min="0" max="999" id="productPrice" required placeholder="Price or 0" defaultValue={this.state.item.price}/>
                         <InputGroup.Text>.00</InputGroup.Text>
                         <Form.Control.Feedback type="invalid">
                             Price must be between 0-999
@@ -81,8 +105,8 @@ class SellForm extends Component {
                     </Form.Group>
                 </Row>
 
-                <Button variant="primary" type="button" onClick={handleSubmit} size="lg" id="sellButton">
-                    Post
+                <Button variant="primary" type="button" onClick={(handleSubmit)} size="lg" id="sellButton">
+                    Edit
                 </Button>
 
             </Form>
@@ -90,7 +114,7 @@ class SellForm extends Component {
     }
 }
 
-function prepareData() {
+function prepareData(id) {
 
     let title = document.getElementById("productTitle").value + "";
     let description = document.getElementById("productDesc").value + "";
@@ -108,7 +132,8 @@ function prepareData() {
     }
     
 
-    const data = {"title": title, "description": description, "price": price, "payPref": payPref, email: sessionStorage.getItem("email"), "token": sessionStorage.getItem("token")};
+    const data = {"title": title, "description": description, "price": price, "payPref": payPref, email: sessionStorage.getItem("email"), itemId: id, "token": sessionStorage.getItem("token")};
+
     let formData = new FormData();
     formData.append('title', title);
     formData.append('description', description);
@@ -129,7 +154,7 @@ function prepareData() {
 
 async function sendSell(data, formData) {
     try {
-        const response = await fetch("/api/marketplace/create-sell", {
+        const response = await fetch("/api/marketplace/edit-sell", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -141,8 +166,7 @@ async function sendSell(data, formData) {
         console.log("Success:", result);
 
         if(result.success === "true") {
-            // window.location.href = '/marketplace/user/my-listings'
-            alert("success!");
+            window.location.href = '/marketplace/my-items'
 
         }
         if(result.success === false) {
@@ -155,7 +179,7 @@ async function sendSell(data, formData) {
     }
 
     try {
-        const response = await fetch("/api/marketplace/create-sell/images", {
+        const response = await fetch("/api/marketplace/edit-sell/images", {
             method: "POST",
             body: formData,
             // headers: {
@@ -182,4 +206,30 @@ async function sendSell(data, formData) {
 
 
 }
-export default SellForm;
+
+async function itemGetFields(itemId) {
+    const data = {'itemId': itemId};
+
+    try {
+        const response = await fetch("/api/marketplace/edit-item/getInfo", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+        });
+
+        const result = await response.json();
+        console.log("Success:", result);
+
+        return result;
+
+
+
+        } catch(error) {
+        console.error("Error:", error);
+
+    }
+
+}
+export default EditForm;

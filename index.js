@@ -42,6 +42,7 @@ async function mongoConnect() {
 
 let currentUsername = "";
 let currentUserEmail = "";
+let currentToken = "";
 
 
 app.get("/api", (req, res) => {
@@ -72,7 +73,7 @@ app.post("/api/login", async function (req, res) {
     res.json({success: false});
   }
   if(loginCheck === true) {
-    res.json({success: "true"});
+    res.json({success: "true", token: currentToken});
   }
   
 
@@ -82,6 +83,10 @@ app.post("/api/marketplace/create-sell", async function (req, res) {
   let data = req.body;
 
   // console.log(currentUserEmail + " " + data.email);
+  if(await forgery(data.token) == false) {
+    res.send("Forgery Detected");
+    return;
+  }
   
   if(currentUserEmail === data.email) {
     if(await itemInsert(data) == true){
@@ -170,11 +175,132 @@ app.post("/api/marketplace/my-items", async function (req, res) {
 
 });
 
+app.post("/api/marketplace/my-items/delete", async function (req, res) {
+  let data = req.body;
+
+  if(await forgery(data.token) == false) {
+    res.send("Forgery Detected");
+    return;
+  }
+
+  let itemId = data.itemId;
+
+  let query = SellItem.deleteOne({'_id': itemId});
+  let item = await query.exec();
+
+  if(item == 1) {
+    res.json({'success': true});
+  }
+  else {
+    res.json({'success': false});
+  }
+
+});
+
+app.post("/api/marketplace/edit-sell", async function (req, res) {
+  let data = req.body;
+
+  // console.log(currentUserEmail + " " + data.email);
+
+  if(await forgery(data.token) == false) {
+    res.send("Forgery Detected");
+    return;
+  }
+
+  
+  if(currentUserEmail === data.email) {
+    if(await itemEdit(data) == true){
+      console.log("Item Edited");
+      res.json({success:true});
+    }
+    else {
+      res.json({success:false});
+    }
+  }
+  else {
+    res.json({success:false});
+  }
+
+});
+
+app.post("/api/marketplace/edit-sell/images", upload.array('images'),  async function (req, res) {
+  let files = Array.from(req.files);
+  let postData = req.body;
+
+  if(files.length > 0) {
+    let fileNames = [];
+
+    for(let i = 0; i < files.length; i++) {
+      fileNames.push(files[i].filename);
+    }
+
+    let added = await insertImages(fileNames, postData);
+
+    if(added === true) {
+      res.json({success:true});
+    }
+    else {
+      res.json({success:false});
+    }
+  }
+
+});
+
+app.post("/api/marketplace/edit-item/getInfo", async function (req, res) {
+  let data = req.body;
+
+  let query = SellItem.findOne({'email': currentUserEmail, '_id': data.itemId});
+  let item = await query.exec();
+
+  // console.log(itemList);
+
+  res.json(item);
+
+
+});
+
+app.post("/api/marketplace/buy-item", async function (req, res) {
+  let data = req.body;
+  
+  if(currentUserEmail === data.buyerEmail) {
+    if(await buyRequest(data) == true){
+      console.log("Buy Request");
+      res.json({success:true});
+    }
+    else {
+      res.json({success:false});
+    }
+  }
+  else {
+    res.json({success:false});
+  }
+
+});
+
 
 
 app.listen(port, () => {
     console.log('Listening on port: ' + port)
 });
+
+async function pwdHash(pwd) {
+
+  const salt = bcrypt.genSaltSync(saltRounds);
+  const hash = bcrypt.hashSync(pwd, salt);
+  return hash;
+
+
+}
+
+async function forgery(token) {
+  if(token != currentToken) {
+    return false;
+  }
+  else {
+    return true;
+  }
+
+}
 
 async function userInsert(data) {
 
@@ -210,15 +336,6 @@ async function checkEmailExist(email) {
 
 }
 
-async function pwdHash(pwd) {
-
-  const salt = bcrypt.genSaltSync(saltRounds);
-  const hash = bcrypt.hashSync(pwd, salt);
-  return hash;
-
-
-}
-
 async function loginAttempt(data) {
   let name = "";
   let pwdHash = "";
@@ -248,6 +365,11 @@ async function loginAttempt(data) {
   if(pwdResult === true) {
     currentUsername = userCheck.username;
     currentUserEmail = email;
+
+    let temp = "token";
+
+    const salt = bcrypt.genSaltSync(saltRounds);
+    currentToken = bcrypt.hashSync(temp, salt);
     // console.log(currentUsername + " " + currentUserEmail);
     return true;
   }
@@ -297,6 +419,47 @@ async function insertImages(imageNames, data) {
 
 }
 
+async function itemEdit(data) {
+
+  let post = await SellItem.findOne({_id: data.itemId, email: currentUserEmail});
+
+  if(post != null) {
+
+    post.title = data.title,
+    post.description = data.description,
+    post.price = data.price,
+    post.payPref = data.payPref,
+
+    await post.save();
+  
+    return true;
+  
+  }
+  else {
+    return false;
+  }
+  
+}
+
+async function buyRequest(data) {
+
+  let post = await SellItem.findOne({_id: data.itemId});
+
+  if(post != null) {
+
+    post.buyRequest.push(data.buyerEmail);
+
+    await post.save();
+  
+    return true;
+  
+  }
+  else {
+    return false;
+  }
+  
+}
+
 
 //mongoose schema 
 
@@ -318,7 +481,8 @@ const sellPostSchema = new mongoose.Schema({
   payPref: String,
   imageRef: [String],
   username: String,
-  email: String
+  email: String,
+  buyRequest: [String]
 
 });
 

@@ -84,6 +84,7 @@ async function sendLogin(data) {
 
         if(result.success === "true") {
             sessionStorage.setItem("email", data.email);
+            sessionStorage.setItem("token", result.token);
             window.location.href = '/marketplace'
         }
         if(result.success === false) {

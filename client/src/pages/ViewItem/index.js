@@ -69,7 +69,7 @@ class ViewItem extends Component {
                             <ListGroup variant="flush">
                                 <ListGroup.Item variant="primary">Seller: {this.state.item.username}</ListGroup.Item>
                                 <ListGroup.Item variant="primary">Payment Preference: {this.state.item.payPref}</ListGroup.Item>
-                                <ListGroup.Item action className="buyButton" variant="primary">Buy Request</ListGroup.Item>                            
+                                <ListGroup.Item action className="buyButton" variant="primary" onClick={() => buyRequest(this.state.item.email, this.state.item._id)}>Buy Request</ListGroup.Item>                            
                             </ListGroup>
                         </Card>
 
@@ -127,25 +127,39 @@ async function getItems(itemId) {
     }
 }
 
+async function buyRequest(email, itemId) {
+    if(email != sessionStorage.getItem("email")) {
 
-{/* <img ></img>
+        const data = {'itemId': itemId, 'buyerEmail': sessionStorage.getItem("email")};
 
-<h1>{this.state.item.title}</h1>
+        try {
+            const response = await fetch("/api/marketplace/buy-item", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(data),
+            });
+    
+            const result = await response.json();
+            console.log("Success:", result);
+    
+            return result;
+    
+    
+    
+            } catch(error) {
+            console.error("Error:", error);
+    
+        }
+        
 
-<p>{this.state.item.description}</p>
 
-<h2>{this.state.item.price}</h2>
-<h3>{this.state.item.payPref}</h3>
-<h3>{this.state.item.username}</h3> */}
 
-{/* <div>
-<div className="itemPrice">Price: ${this.state.item.price}.00</div>
-<div className="itemPayPref">Payment Preference: {this.state.item.payPref}</div>
-</div>
+    }
 
-<div>
-<div className="itemUsername">Seller: {this.state.item.username}</div>
-<Button variant="Primary" className="buyRequest">Buy Request</Button>
-</div> */}
+
+}
+
 
 export default ViewItem;

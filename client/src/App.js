@@ -11,6 +11,8 @@ import Marketplace from './pages/Marketplace/index.js';
 import Sell from './pages/Sell/index.js';
 import ViewItem from './pages/ViewItem/index.js';
 import MyItems from './pages/MyItems/index.js';
+import Edit from './pages/EditPost/index.js';
+
 
 
 
@@ -29,6 +31,8 @@ class App extends Component {
           <Route path='/marketplace/create-sell' exact element={<Sell/>} />
           <Route path='/marketplace/view-item' exact element={<ViewItem/>} />
           <Route path='/marketplace/my-items' exact element={<MyItems/>} />
+          <Route path='/marketplace/edit-item' exact element={<Edit/>} />
+
 
         </Routes>
       </div>
