@@ -88,7 +88,7 @@ function onloadCheck() {
 
 async function getItems() {
 
-    let data = {'startIndex': 1};
+    let data = {'startIndex': 1, 'email': sessionStorage.getItem('email')};
 
     try {
         const response = await fetch("/api/marketplace/my-items", {
