@@ -3,7 +3,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #006494;
+    /* background-color: #006494; */
 
     /* height: 90rem; */
 }
@@ -12,6 +12,9 @@
     /* justify-content: center; */
     align-items: center;
     text-align: center;
+    background-color: #006494;
+    height: 100vh;
+
 }
 
 .loginFormDiv {

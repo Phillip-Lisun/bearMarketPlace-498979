@@ -8,7 +8,7 @@ class WelcomeNav extends Component {
     render() {
         return (
             <>
-                <Navbar variant="dark" className="welcomeNav">
+                <Navbar sticky="top" variant="dark" className="welcomeNav">
                     <Container>
                         <Navbar.Brand href="/">Bear Marketplace</Navbar.Brand>
                         <Nav className="me-auto">
