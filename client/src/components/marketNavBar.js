@@ -54,9 +54,47 @@ class MarketNav extends Component {
     }
 }
 
-function logout() {
-    sessionStorage.clear();
-    window.location.href = '/';
+async function logout() {
+
+    let email = sessionStorage.getItem("email");
+    let token = sessionStorage.getItem("token");
+
+    let data = {'email': email, 'token': token};
+
+    try {
+        const response = await fetch("/api/marketplace/logout", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+        });
+
+        const result = await response.json();
+        console.log("Success:", result);
+
+        if(result.success) {
+            sessionStorage.clear();
+            window.location.href = '/';
+        }
+        else {
+            console.log(sessionStorage.getItem("token"));
+            alert("Forgery Detected");
+            return result.message;
+        }
+
+        // return result;
+
+        } catch(error) {
+        console.error("Error:", error);
+
+    }
+
+
+
+
+    // sessionStorage.clear();
+    // window.location.href = '/';
 }
 
 function myItems() {

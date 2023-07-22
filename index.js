@@ -11,6 +11,7 @@ const { Schema, model } = mongoose;
 const bcrypt = require('bcrypt');
 
 const multer = require("multer");
+const e = require('express');
 
 //Configuration for Multer copied code beginning https://www.section.io/engineering-education/uploading-files-using-multer-nodejs/
 const multerStorage = multer.diskStorage({
@@ -277,11 +278,56 @@ app.post("/api/marketplace/buy-item", async function (req, res) {
 
 });
 
+app.post("/api/marketplace/logout", async function (req, res) {
+
+    let data = req.body;
+    let email = data.email;
+
+    let logInCheck = await checkLogIn(data.email);
+    
+    if(logInCheck != false) {
+      console.log(logInCheck);
+      if(data.token != logInCheck) {
+        res.json({success: false, message: "forgery detected"});
+      }
+      else {
+        logOutUser = await logIn.deleteOne({"email": email}).exec();
+        if(logOutUser != null) {
+          res.json({success:true});
+        }
+      }
+    }
+    else {
+        res.json({success:false});
+
+    }
+
+
+
+
+});
+
 
 
 app.listen(port, () => {
     console.log('Listening on port: ' + port)
 });
+
+async function checkLogIn(email) {
+
+  logInCheck = await logIn.findOne({'email': email}, 'token').exec();
+
+  if(logInCheck != null) {
+    return logInCheck.token;
+  }
+  else {
+    return false;
+  }
+
+
+
+
+}
 
 async function pwdHash(pwd) {
 
@@ -363,15 +409,32 @@ async function loginAttempt(data) {
     return false;
   }
   if(pwdResult === true) {
-    currentUsername = userCheck.username;
-    currentUserEmail = email;
 
     let temp = "token";
-
     const salt = bcrypt.genSaltSync(saltRounds);
-    currentToken = bcrypt.hashSync(temp, salt);
+    let tempToken = bcrypt.hashSync(temp, salt);
+    currentToken = tempToken;
+
+    const logInUser = await logIn.create({
+      email: email,
+      token: tempToken
+    });
+
+    if(logInUser != null) {
+      return true;
+    }
+    else {
+      return false;
+    }
+
+    // currentUsername = userCheck.username;
+    // currentUserEmail = email;
+
+
+    // const salt = bcrypt.genSaltSync(saltRounds);
+    // currentToken = bcrypt.hashSync(temp, salt);
     // console.log(currentUsername + " " + currentUserEmail);
-    return true;
+    // return true;
   }
 
 
@@ -463,6 +526,11 @@ async function buyRequest(data) {
 
 //mongoose schema 
 
+const logInSchema = new mongoose.Schema ({
+    email: String,
+    token: String
+});
+
 const userSchema = new mongoose.Schema({
     name: [{
       firstName: String,
@@ -488,3 +556,4 @@ const sellPostSchema = new mongoose.Schema({
 
 const User = mongoose.model('User', userSchema, 'users');
 const SellItem = mongoose.model('SellItem', sellPostSchema, 'sellItems');
+const logIn = mongoose.model('logIn', logInSchema, 'loggedInUsers');
