@@ -208,7 +208,7 @@ async function sendSell(data, formData) {
 }
 
 async function itemGetFields(itemId) {
-    const data = {'itemId': itemId};
+    const data = {'itemId': itemId, 'email': sessionStorage.getItem("email")};
 
     try {
         const response = await fetch("/api/marketplace/edit-item/getInfo", {

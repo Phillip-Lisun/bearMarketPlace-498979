@@ -113,7 +113,7 @@ async function getItems() {
 
 async function deleteItem(itemId) {
 
-    let data = {'itemId': itemId, 'token': sessionStorage.getItem("token")};
+    let data = {'itemId': itemId, 'token': sessionStorage.getItem("token"), 'email': sessionStorage.getItem("email")};
 
     try {
         const response = await fetch("/api/marketplace/my-items/delete", {

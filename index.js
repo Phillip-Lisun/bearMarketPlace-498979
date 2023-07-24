@@ -41,8 +41,6 @@ async function mongoConnect() {
   console.log("Connected to MongoDB!");
 }
 
-let currentUsername = "";
-let currentUserEmail = "";
 let currentToken = "";
 
 
@@ -84,12 +82,12 @@ app.post("/api/marketplace/create-sell", async function (req, res) {
   let data = req.body;
 
   // console.log(currentUserEmail + " " + data.email);
-  if(await forgery(data.token) == false) {
+  if(await forgery(data.email, data.token) == false) {
     res.send("Forgery Detected");
     return;
   }
   
-  if(currentUserEmail === data.email) {
+  if(checkLogIn(data.email) != false) {
     if(await itemInsert(data) == true){
       console.log("Item inserted");
       res.json({success:true});
@@ -179,7 +177,7 @@ app.post("/api/marketplace/my-items", async function (req, res) {
 app.post("/api/marketplace/my-items/delete", async function (req, res) {
   let data = req.body;
 
-  if(await forgery(data.token) == false) {
+  if(await forgery(data.email, data.token) == false) {
     res.send("Forgery Detected");
     return;
   }
@@ -203,13 +201,13 @@ app.post("/api/marketplace/edit-sell", async function (req, res) {
 
   // console.log(currentUserEmail + " " + data.email);
 
-  if(await forgery(data.token) == false) {
+  if(await forgery(data.email, data.token) == false) {
     res.send("Forgery Detected");
     return;
   }
 
   
-  if(currentUserEmail === data.email) {
+  if(checkLogIn(data.email)) {
     if(await itemEdit(data) == true){
       console.log("Item Edited");
       res.json({success:true});
@@ -250,7 +248,7 @@ app.post("/api/marketplace/edit-sell/images", upload.array('images'),  async fun
 app.post("/api/marketplace/edit-item/getInfo", async function (req, res) {
   let data = req.body;
 
-  let query = SellItem.findOne({'email': currentUserEmail, '_id': data.itemId});
+  let query = SellItem.findOne({'email': data.email, '_id': data.itemId});
   let item = await query.exec();
 
   // console.log(itemList);
@@ -263,7 +261,7 @@ app.post("/api/marketplace/edit-item/getInfo", async function (req, res) {
 app.post("/api/marketplace/buy-item", async function (req, res) {
   let data = req.body;
   
-  if(currentUserEmail === data.buyerEmail) {
+  if(checkLogIn(data.email) != false) {
     if(await buyRequest(data) == true){
       console.log("Buy Request");
       res.json({success:true});
@@ -286,7 +284,7 @@ app.post("/api/marketplace/logout", async function (req, res) {
     let logInCheck = await checkLogIn(data.email);
     
     if(logInCheck != false) {
-      console.log(logInCheck);
+      //console.log(logInCheck);
       if(data.token != logInCheck) {
         res.json({success: false, message: "forgery detected"});
       }
@@ -338,8 +336,12 @@ async function pwdHash(pwd) {
 
 }
 
-async function forgery(token) {
-  if(token != currentToken) {
+async function forgery(email, token) {
+
+  let setToken = await logIn.findOne({'email': email}, "token").exec();
+
+
+  if(token != setToken.token || setToken == null) {
     return false;
   }
   else {
@@ -441,6 +443,9 @@ async function loginAttempt(data) {
 }
 
 async function itemInsert(data) {
+
+  let usernamePull = await User.findOne({"email": data.email}, 'username').exec();
+  let username = usernamePull.username;
   
 
   const addItem = await SellItem.create({
@@ -448,8 +453,8 @@ async function itemInsert(data) {
     description: data.description,
     price: data.price,
     payPref: data.payPref,
-    username: currentUsername,
-    email: currentUserEmail
+    username: username,
+    email: data.email
   });
   // console.log(addItem);
 
@@ -484,7 +489,7 @@ async function insertImages(imageNames, data) {
 
 async function itemEdit(data) {
 
-  let post = await SellItem.findOne({_id: data.itemId, email: currentUserEmail});
+  let post = await SellItem.findOne({_id: data.itemId, email: data.email});
 
   if(post != null) {
 
