@@ -1,40 +1,38 @@
 #login {
-    margin-top: 15%;
+    /* margin-top: 15%; */
     display: flex;
     justify-content: center;
-    align-items: center;
-    /* background-color: #006494; */
+    align-content: center;
 
-    /* height: 90rem; */
 }
 
 #loginPage {
-    /* justify-content: center; */
-    align-items: center;
-    text-align: center;
     background-color: #006494;
     height: 100vh;
 
 }
+.mb-3 {
+  padding-bottom: 0.75rem;
+}
 
 .loginFormDiv {
-    /* padding: 20%; */
-    /* margin-left: 20rem; */
     padding-top: 1rem;
+    margin-top: 15vh;
+    height: 28rem;
     width: 25rem;
-    height: 16.5rem;
-    background-color: #051923;
-    box-shadow: 0 0 10rem #003554;
-    border-radius: 20px;
-    opacity: 85%;
+    background-color: #006494;
+    /* box-shadow: 0 0 10rem #003554; */
+    border-radius: 25px;
+    border-style: solid;
+    border-width: 1px;
+    border-color: #051923;
+    /* opacity: 100%; */
   }
   .loginFormGrid {
-    padding-left: 2rem;
-    padding-right: 2rem;
-    padding-top: 1rem;
-    padding-bottom: 0.5rem;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    padding-top: 2rem;
   }
-
   #loginHead {
     color: white;
   }
@@ -42,6 +40,8 @@
   #loginButton {
     background-color: #003554;
     border-color: #003554;
+
+    width: 22rem;
   }
   #loginButton:hover {
     background-color: #0582CA;
@@ -49,14 +49,12 @@
   }
 
   #fieldAlert {
-    display: none;
-    width: 75rem;
-    font-size: 20pt;
-    font-weight: 500;
-  }
-  
-  #alertDiv {
+    margin-left: 2rem;
+    margin-right: 2rem;
     display: flex;
     align-items: center;
     justify-content: center;
+    height: 2rem;
+
   }
+ 
