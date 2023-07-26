@@ -41,6 +41,13 @@ class LoginForm extends Component {
             
           };
 
+        const handleKeypress = (event) => {
+            //it triggers by pressing the enter key
+          if (event.key === "Enter") {
+            handleSubmit();
+          }
+        };
+
         return(
 
             <div className="loginFormDiv">
@@ -56,7 +63,7 @@ class LoginForm extends Component {
                             <FloatingLabel label="Email">
                                 <Form.Control id="formGridEmail" type="text" placeholder="" required/>
                             </FloatingLabel>
-                            <InputGroup.Text>@wustl.edu</InputGroup.Text>
+                            <InputGroup.Text id="emailIG">@wustl.edu</InputGroup.Text>
                         </InputGroup>
                     {/* </Row> */}
                     </div>
@@ -73,7 +80,7 @@ class LoginForm extends Component {
 
                     <div className="mb-3">
 
-                    <Button variant="primary" type="button" onClick={handleSubmit} size="lg" id="loginButton">
+                    <Button variant="primary" type="button" onClick={handleSubmit} onKeyDown={handleKeypress} size="lg" id="loginButton">
                         Login
                     </Button>
                     </div>
