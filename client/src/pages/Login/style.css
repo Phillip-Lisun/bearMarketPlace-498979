@@ -21,7 +21,8 @@
     height: 28rem;
     width: 23rem;
     /* background-color: #006494; */
-    /* box-shadow: 0 0 10rem #003554; */
+    box-shadow: 2rem 2rem 100rem #003554;
+    /* box-shadow: inset 0rem 0rem 30rem #0582CA; */
     border-radius: 25px;
     border-style: solid;
     border-width: 1px;
