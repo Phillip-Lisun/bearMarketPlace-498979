@@ -17,7 +17,7 @@ class WelcomeNav extends Component {
                         </Nav>
                         <Nav className="d-flex">
                             <Nav.Link href="/login">Login</Nav.Link>
-                            <Nav.Link href="/register">Register</Nav.Link>
+                            {/* <Nav.Link href="/register">Register</Nav.Link> */}
                         </Nav>
                     </Container>
                 </Navbar>
