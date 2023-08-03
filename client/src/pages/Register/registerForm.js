@@ -10,7 +10,7 @@ class RegisterForm extends Component {
     render() {
         return (
             <Form className="registerFormGrid">
-                <Row className="mb-3">
+                {/* <Row className="mb-3"> */}
                     <Form.Group as={Col} controlId="formGridFirstName">
                         {/* <Form.Label>First Name</Form.Label> */}
                         <Form.Control type="text" placeholder="First Name" />
@@ -19,8 +19,8 @@ class RegisterForm extends Component {
                         {/* <Form.Label>Last Name</Form.Label> */}
                         <Form.Control type="text" placeholder="Last Name" />
                     </Form.Group>
-                </Row>
-                <Row className="mb-3">
+                {/* </Row> */}
+                {/* <Row className="mb-3"> */}
                     <Form.Group as={Col} controlId="formGridUsername">
                         <Form.Control type="text" placeholder="Username" />
                     </Form.Group>
@@ -31,8 +31,8 @@ class RegisterForm extends Component {
                             <InputGroup.Text>@wustl.edu</InputGroup.Text>
                         </InputGroup>
                     </Form.Group>
-                </Row>
-                <Row className="mb-3">
+                {/* </Row> */}
+                {/* <Row className="mb-3"> */}
                     <Form.Group as={Col} controlId="password">
                         {/* <Form.Label>Password</Form.Label> */}
                         <Form.Control type="password" placeholder="Password" />
@@ -41,7 +41,7 @@ class RegisterForm extends Component {
                         {/* <Form.Label>Password</Form.Label> */}
                         <Form.Control type="password" placeholder="Reenter Password" />
                     </Form.Group>
-                </Row>
+                {/* </Row> */}
 
             </Form>
         );

@@ -15,10 +15,10 @@ class Register extends Component {
 
     render() {
         return (
-            <div className="App">
+            <div className="App" id='registerPage'>
                 <WelcomeNav></WelcomeNav>
-                <br />
-                <Alert id="fieldAlert" variant="danger">Missing Field: </Alert>
+                {/* <br /> */}
+                {/* <Alert id="fieldAlert" variant="danger">Missing Field: </Alert> */}
                 <div className="body" id="register">
                     <div className="registerFormDiv">
                         <h2 id="registerHead">Register</h2>
