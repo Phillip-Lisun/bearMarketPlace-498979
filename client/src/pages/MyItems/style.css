@@ -35,13 +35,7 @@
 #collasible-nav-dropdown {
     padding-right: 2rem;
 }
-.itemCardSingle {
-    width: 16rem;
-    padding-left: 1rem;
-    padding-right: 1rem;
-    border-bottom-left-radius: 0rem;
-    border-bottom-right-radius: 0rem;
-}
+
 .itemContainer {
     display: flex;
     align-items: center;

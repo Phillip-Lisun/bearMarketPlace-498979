@@ -8,7 +8,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    color: white;
+    background-color: #E5E4E2;
 
 }
 #searchField {
@@ -35,22 +35,17 @@
 #collasible-nav-dropdown {
     padding-right: 2rem;
 }
-.itemCardSingle {
-    width: 16rem;
-    padding-left: 1rem;
-    padding-right: 1rem;
-}
 .itemContainer {
     display: flex;
     align-items: center;
     justify-content: center;
-    /* margin: 5rem; */
+    background-color: #E5E4E2;
 
 }
 .mainBody {
     margin: 5rem;
 
-    background-color: #003554;
+    background-color: #E5E4E2;
     border-radius: 5rem;
 
     text-align: center;

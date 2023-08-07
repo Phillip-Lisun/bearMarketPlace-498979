@@ -1,6 +1,8 @@
 import React, {Component, useState} from 'react';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
+import './style.css';
+
 
 
 class ItemCard extends Component {
