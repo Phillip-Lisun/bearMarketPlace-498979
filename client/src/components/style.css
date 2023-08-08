@@ -7,15 +7,30 @@
 .itemCardSingle {
     background-color: #E5E4E2;
     width: 16rem;
-    height: 20rem;
+    height: 25rem;
     padding-left: 1rem;
     padding-right: 1rem;
-    /* box-shadow: 1.5rem 1.5rem 100rem #003554; */
+    box-shadow: 1.5rem 1.5rem 100rem #003554;
     border-radius: 25px;
     border-style: solid;
     border-width: 1px;
     border-color: #051923;
+    align-items: center;
 }
 .cardFooter {
     background-color: #E5E4E2;
+}
+#cardImage {
+    width: 16rem;
+    height: 10rem;
+    border-top-left-radius: 25px;
+    border-top-right-radius: 25px;
+    /* border-bottom-color: #003554;
+    border-bottom-width: 2px;
+    border-bottom-style: solid; */
+    border-style: solid;
+    border-color: #003554;
+    border-width: 2px;
+
+
 }
