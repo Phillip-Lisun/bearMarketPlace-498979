@@ -1,11 +1,12 @@
+require('dotenv').config();
 const express = require('express');
 const app = express();
 const port = 3000;
 const path = require('path');
 const router = express.Router();
+const uri = process.env.MONGO_URI;
 
 const { MongoClient, ServerApiVersion } = require('mongodb');
-const uri = "mongodb+srv://bearmp-user:oESJcxN6ERfNwkjT@cluster0.mqdocjh.mongodb.net/bearmp?retryWrites=true&w=majority";
 const mongoose = require('mongoose');
 const { Schema, model } = mongoose;
 const bcrypt = require('bcrypt');
